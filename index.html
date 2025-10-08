@@ -5,15 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>150 يومًا من الإنجاز</title>
     <link rel="stylesheet" href="style.css">
-    </head>
+</head>
 <body>
 
-    <header>
+    <div id="password-modal" class="modal is-active">
+        <div class="modal-content password-content">
+            <h2>مرحباً بكِ في رحلتك!</h2>
+            <p>يرجى إدخال كلمة المرور للمتابعة:</p>
+            <input type="password" id="password-input" placeholder="أدخلي كلمة المرور هنا..." required>
+            <button id="password-submit">دخول</button>
+            <p id="password-error" class="error-message"></p>
+        </div>
+    </div>
+    <header id="app-header" class="hidden-content">
         <h1>💎 رحلة 150 يومًا من الإنجاز 💎</h1>
         <p>كل يوم خطوة نحو حلمك. أنتِ قادرة!</p>
     </header>
 
-    <main id="days-container">
+    <main id="days-container" class="hidden-content">
         </main>
 
     <div id="celebration-modal" class="modal">
@@ -21,7 +30,8 @@
             <span class="close-button">&times;</span>
             <h2 id="modal-title">تهانينا! 🎉</h2>
             <p id="modal-message">أحسنتِ أيتها المجتهدة الجميلة! لقد أتممتِ مهام اليوم بنجاح وفتحتِ اليوم التالي!</p>
-            <div class="confetti"></div> </div>
+            <div class="confetti"></div>
+        </div>
     </div>
 
     <script src="script.js"></script>
