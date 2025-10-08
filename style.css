@@ -1,0 +1,250 @@
+/* تصميم أساسي وخطوط */
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@400;700&display=swap'); /* خط عربي جذاب */
+
+:root {
+    --primary-color: #6a0572; /* بنفسجي غامق */
+    --secondary-color: #f7b731; /* أصفر ذهبي */
+    --success-color: #00b894; /* أخضر نجاح */
+    --bg-light: #f4f7f6;
+    --bg-dark: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Changa', sans-serif;
+    background: linear-gradient(135deg, var(--bg-light) 0%, #e0c3fc 100%); /* خلفية متدرجة جميلة */
+    color: #333;
+    text-align: right;
+    padding: 20px;
+}
+
+/* الترويسة */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: var(--bg-dark);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    color: var(--primary-color);
+    font-size: 2.5em;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: #666;
+    font-size: 1.2em;
+}
+
+/* حاوية الأيام */
+#days-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* بطاقة اليوم */
+.day-card {
+    background-color: var(--bg-dark);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 3px solid transparent;
+}
+
+/* اليوم الحالي والمكتمل */
+.day-card.current {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 15px rgba(106, 5, 114, 0.2);
+    transform: translateY(-5px);
+}
+
+.day-card.completed {
+    background-color: #d1f7e8; /* خلفية خضراء فاتحة للإنجاز */
+    border-color: var(--success-color);
+    opacity: 0.8;
+}
+
+/* اليوم المغلق (Locked) */
+.day-card.locked {
+    background-color: #f0f0f0;
+    opacity: 0.5; /* لجعل البطاقة تبدو باهتة */
+    cursor: not-allowed;
+    position: relative; /* مهم لوضع القفل */
+    pointer-events: none; /* لمنع أي نقر على البطاقة */
+    transform: none !important; /* إلغاء أي تحريك بالمرور فوقها */
+    border: 3px solid #ccc;
+}
+
+/* أيقونة القفل التي ستظهر فوق البطاقة المغلقة */
+.day-card.locked::before {
+    content: '🔒'; /* رمز القفل */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4em;
+    color: #999;
+    z-index: 5; /* لضمان ظهوره فوق المحتوى */
+    animation: pulse 1.5s infinite; /* تأثير نبض خفيف */
+}
+
+.day-card.locked h2,
+.day-card.locked .task-list {
+    filter: blur(2px); /* تشويش بسيط للمحتوى الداخلي */
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* محتويات اليوم */
+.day-card h2 {
+    font-size: 1.5em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 5px;
+}
+
+.task-list {
+    list-style: none;
+    margin-bottom: 15px;
+}
+
+.task-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px dashed #ccc;
+    color: #555;
+}
+
+.task-list li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.task-list input[type="checkbox"] {
+    transform: scale(1.3);
+    accent-color: var(--success-color);
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.task-list label {
+    flex-grow: 1;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.task-list input[type="checkbox"]:checked + label {
+    text-decoration: line-through;
+    color: var(--success-color);
+}
+
+/* زر الإتمام */
+.complete-button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.complete-button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.complete-button:hover:not(:disabled) {
+    background-color: #fca311;
+    transform: translateY(-2px);
+}
+
+.day-card.completed .complete-button {
+    background-color: var(--success-color);
+    color: white;
+    cursor: default;
+}
+
+/* تصميم الـ Modal (نافذة الاحتفال) */
+.modal {
+    display: none; /* مخفية في البداية */
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    position: relative;
+    border: 5px solid var(--secondary-color);
+    animation: pop-in 0.5s ease-out;
+}
+
+.modal-content h2 {
+    color: var(--success-color);
+    font-size: 2.5em;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    color: var(--primary-color);
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.close-button {
+    color: #aaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* تأثير الحركة */
+@keyframes pop-in {
+    0% { transform: scale(0.5); opacity: 0; }
+    80% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); }
+}
