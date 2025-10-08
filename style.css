@@ -248,3 +248,56 @@ header p {
     80% { transform: scale(1.05); opacity: 1; }
     100% { transform: scale(1); }
 }
+
+/* =============== تصميم شاشة الدخول (كلمة المرور) =============== */
+
+.password-content {
+    margin-top: 20%; /* لجعله في منتصف الشاشة تقريباً */
+}
+
+.password-content h2 {
+    color: var(--primary-color);
+    font-size: 2em;
+}
+
+#password-input {
+    width: 90%;
+    padding: 12px;
+    margin: 15px 0;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 1.1em;
+    text-align: center;
+}
+
+#password-submit {
+    width: 50%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#password-submit:hover {
+    background-color: #550460;
+}
+
+.error-message {
+    color: #ff4757;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* لإخفاء محتوى التطبيق حتى يتم إدخال كلمة المرور */
+.hidden-content {
+    display: none !important;
+}
+
+/* لإظهار الـ modal الخاص بكلمة المرور في البداية */
+#password-modal.is-active {
+    display: block;
+}
