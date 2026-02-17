@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#ffe4e1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <title>عيد ميلاد سعيد يا صفا! 🎀</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-pink: #ff69b4;
+            --light-pink: #ffc0cb;
+            --soft-pink: #ffe4e1;
+            --kitty-white: #ffffff;
+            --kitty-red: #ff0000;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            /* استخدام dvh يحل مشكلة شريط العنوان في الآيفون */
+            height: 100dvh; 
+            overflow: hidden; /* لمنع أي سكرول غير مرغوب */
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--soft-pink);
+            background-image: radial-gradient(var(--light-pink) 15%, transparent 16%), radial-gradient(var(--light-pink) 15%, transparent 16%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            -webkit-tap-highlight-color: transparent; /* إزالة الوميض الرمادي عند النقر في الآيفون */
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100dvh; /* مهم للآيفون */
+            width: 100%;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* الكارت */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 20px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.4);
+            border: 4px solid var(--primary-pink);
+            width: 85%; /* عرض مناسب للموبايل */
+            max-width: 380px;
+            display: none;
+            position: relative;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* شاشة البداية */
+        .start-screen {
+            background: white;
+            padding: 40px;
+            border-radius: 50%;
+            border: 6px solid var(--primary-pink);
+            cursor: pointer;
+            animation: pulse 1.5s infinite ease-in-out;
+            box-shadow: 0 0 25px rgba(255, 105, 180, 0.6);
+            z-index: 100;
+        }
+
+        .start-screen h1 {
+            color: var(--primary-pink);
+            font-size: 1.5rem;
+            margin: 10px 0 0 0;
+            pointer-events: none;
+        }
+
+        .start-screen span {
+            font-size: 3.5rem;
+            display: block;
+            pointer-events: none;
+        }
+
+        h1.title {
+            color: var(--primary-pink);
+            font-size: 2rem;
+            margin: 10px 0;
+            line-height: 1.2;
+        }
+
+        .name-style {
+            color: var(--kitty-red);
+            font-family: 'Fredoka One', cursive, sans-serif;
+            font-size: 2.8rem;
+            display: block;
+            margin-top: 5px;
+            text-shadow: 2px 2px 0px #ffd1dc;
+        }
+
+        p.message {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        .kitty-img {
+            width: 140px;
+            height: auto;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--primary-pink), #ff1493);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.4);
+            transition: transform 0.1s;
+            outline: none;
+            -webkit-appearance: none; /* لإزالة ستايل أزرار آيفون الافتراضي */
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        /* القلوب المتساقطة */
+        .falling-item {
+            position: absolute;
+            top: -10vh;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 20px rgba(255, 105, 180, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fall {
+            to { transform: translateY(120vh) rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" preload="auto" playsinline>
+        <source src="https://h.top4top.io/m_3700fkcjl1.m4a" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div class="start-screen" id="start-btn" onclick="startParty()">
+            <span>🎁</span>
+            <h1>اضغطي هنا<br>يا صفا</h1>
+        </div>
+
+        <div class="card" id="birthday-card">
+            <img src="https://upload.wikimedia.org/wikipedia/en/0/05/Hello_kitty_character_portrait.png" class="kitty-img" alt="Kitty">
+            
+            <h1 class="title">Happy Birthday<br><span class="name-style">يا دلوعتي صفا</span></h1>
+            
+            <p class="message">
+                سنة حلوة تشبه قلبك الوردي 💖<br>
+                <br>كل عام وانتي بخير يا احلا واجمل صفا بالكون عسا الله نحتفل سويه العام القادم باتمانج يحبج يعمره انتي ✨
+            </p>
+            
+            <button class="btn" onclick="celebrate()">احتفال! 🎉</button>
+        </div>
+    </div>
+
+    <script>
+        const startBtn = document.getElementById('start-btn');
+        const card = document.getElementById('birthday-card');
+        const audio = document.getElementById('bg-music');
+        const emojis = ['🎀', '🌸', '🐱', '💖', '🍭', '✨', '🎂'];
+
+        function startParty() {
+            // محاولة تشغيل الصوت فوراً عند اللمس
+            // هذا ضروري جداً للآيفون
+            audio.volume = 0.6;
+            var playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(_ => {
+                    // الصوت يعمل
+                })
+                .catch(error => {
+                    console.log("Auto-play prevented");
+                });
+            }
+
+            // إخفاء الزر وإظهار البطاقة
+            startBtn.style.display = 'none';
+            card.style.display = 'block';
+
+            // بدء التساقط
+            setInterval(createFallingItem, 400);
+        }
+
+        function celebrate() {
+            // اهتزاز خفيف للموبايل (يعمل على أندرويد وبعض الآيفونات الحديثة)
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+
+            // انفجار قلوب
+            for(let i=0; i<40; i++) {
+                setTimeout(() => createFallingItem(true), i * 50);
+            }
+        }
+
+        function createFallingItem(isExplosion = false) {
+            const item = document.createElement('div');
+            item.classList.add('falling-item');
+            item.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            item.style.left = Math.random() * 90 + 5 + 'vw'; // هوامش لضمان عدم خروجها عن الشاشة
+            
+            const size = Math.random() * 20 + 20;
+            item.style.fontSize = size + 'px';
+
+            const duration = isExplosion ? Math.random() * 1.5 + 1 : Math.random() * 3 + 4;
+            item.style.animationDuration = duration + 's';
+
+            document.body.appendChild(item);
+
+            setTimeout(() => {
+                item.remove();
+            }, duration * 1000);
+        }
+    </script>
+</body>
+</html>
